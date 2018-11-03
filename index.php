@@ -57,7 +57,8 @@ function get_gb($gb){
         }
     }
     if(isset($output)){
-        echo '<div class="embed-responsive embed-responsive-21by9"><iframe class="embed-responsive-item" src="'.$output.'" allowfullscreen=""></iframe></div>';
+        //echo '<div class="embed-responsive embed-responsive-21by9"><iframe class="embed-responsive-item" src="'.$output.'" allowfullscreen=""></iframe></div>';
+        echo '<iframe class="embed-responsive-item" style="height:100%;width:98%; min-height:800px;min-width:98%" src="'.$output.'" allowfullscreen=""></iframe>';
     }
 }
 
@@ -72,6 +73,7 @@ function get_gb($gb){
         <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css?h=72d4b24fc6bd36406c352e129d670b64">
     </head>
 <body style="max-width: 98%; margin: 0 auto;">
+        <hr />
     <div class="row">
         <div class="col align-self-center">
             <div class="dropdown float-right"><button class="btn btn-secondary active btn-lg dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button">Unsere Gemeindeboten</button>
@@ -80,9 +82,11 @@ function get_gb($gb){
         </div>
     </div>
     <hr />
-    <div style="min-width: 100%;padding: 0;margin: 0;">
-        <?php get_gb($gb)?>
+    <div class="d-flex flex-row flex-grow-1 flex-shrink-1 justify-content-center visible" style="min-width: 100%;padding: 0;margin: 0;min-height: 800px;">
+    <?php get_gb($gb)?>
     </div>
+
+        
     <script src="assets/js/jquery.min.js?h=1dd785e1de9a32e236b624ae268bb803"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js?h=2394c9ffd5558f411ffdc3326e9a8962"></script>
 </body>

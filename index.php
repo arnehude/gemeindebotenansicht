@@ -47,7 +47,7 @@ function get_gb($gb){
     }
     if(isset($output)){
         //echo '<div class="embed-responsive embed-responsive-21by9"><iframe class="embed-responsive-item" src="'.$output.'" allowfullscreen=""></iframe></div>';
-        echo '<iframe class="embed-responsive-item" style="height:100%;width:98%; min-height:800px;min-width:98%" src="'.$output.'" allowfullscreen=""></iframe>';
+        echo '<iframe class="embed-responsive-item" style="height:100%;width:98%; min-height:600px;min-width:98%" src="'.$output.'" allowfullscreen=""></iframe>';
     }
 }
 

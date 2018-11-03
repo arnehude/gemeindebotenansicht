@@ -21,7 +21,7 @@ function makedropdown(){
     $pdfs = read_dir();
     $output = "";
     foreach ($pdfs as $single) {        
-        $output .= "<a class=\"dropdown-item\" role=\"presentation\" href=\"/?gb=".$single['md5']."\">".str_replace("Gemeindebote_Nr._", "", str_replace(".pdf", "", str_replace("_", " ", $single['filename'])))."</a>";
+        $output .= "<a class=\"dropdown-item\" role=\"presentation\" href=\"/?gb=".$single['md5']."\">".str_replace("Gemeindebote Nr. ", "",str_replace(".pdf", "", str_replace("_", " ", $single['filename'])))."</a>";
     }
     echo $output;
 }

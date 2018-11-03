@@ -78,7 +78,7 @@ if(isset($_GET['gb'])&& $_GET['gb'] !== "" || $_GET['gb'] != NULL){
         </div>
     </div>
     <hr />
-    <div class="d-flex flex-row flex-grow-1 flex-shrink-1 justify-content-center visible" style="min-width: 100%;padding: 0;margin: 0;min-height: 800px;">
+    <div class="d-flex flex-row flex-grow-1 flex-shrink-1 justify-content-center visible" style="min-width: 100%;padding: 0;margin: 0;min-height: 600px;">
     <?php get_gb($gb)?>
     </div>       
     <script src="assets/js/jquery.min.js?h=1dd785e1de9a32e236b624ae268bb803"></script>

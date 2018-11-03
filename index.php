@@ -1,36 +1,26 @@
 <?php 
-if(isset($_GET['gb'])&& $_GET['gb'] !== "" || $_GET['gb'] != NULL){
-    $gb = $_GET['gb'];
-}else{
-    $latest = latest();
-    $gb = $latest['md5'];
-}
-
 function read_dir(){
     $dirname = './pdf';
-    $dirh = opendir($dirname);
-    if ($dirh) {
-        $n = 0;
-        while (($dirElement = readdir($dirh)) !== false) {
-            if($dirElement != '.' && $dirElement != '..'){
-                $elements[$n]['filename'] = $dirElement;
-                $elements[$n]['md5'] = md5($dirElement);
-                $elements[$n]['filepath'] = $dirname.'/'.$dirElement;
-                $elements[$n]['filesize'] = filesize($dirname.'/'.$dirElement);
-                $elements[$n]['filemtime'] = filemtime($dirname.'/'.$dirElement);
-                $n++;
-            }
-        }    
-        closedir($dirh);
+    $dirh = scandir($dirname, 1);
+    $n = 0;
+    foreach ($dirh as $key => $value) {
+        if($value != '.' && $value != '..'){
+            $elements[$n]['id'] = explode('_', $value, 3)[0];
+            $elements[$n]['filename'] = $value;
+            $elements[$n]['md5'] = md5($value);
+            $elements[$n]['filepath'] = $dirname.'/'.$value;
+            $elements[$n]['filesize'] = filesize($dirname.'/'.$value);
+            $elements[$n]['filemtime'] = filemtime($dirname.'/'.$value);
+            $n++;
+        }
     }
     return $elements;
 }
 
 function makedropdown(){
-    $pdfs = read_dir();    
+    $pdfs = read_dir();
     $output = "";
-    foreach ($pdfs as $single) {
-        
+    foreach ($pdfs as $single) {        
         $output .= "<a class=\"dropdown-item\" role=\"presentation\" href=\"/?gb=".$single['md5']."\">".str_replace(".pdf", "", str_replace("_", " ", $single['filename']))."</a>";
     }
     echo $output;
@@ -38,14 +28,13 @@ function makedropdown(){
 
 function latest(){
     $pdfs = read_dir();
-    $latest['filemtime'] = 0;
-    $latest['filepath'] = "";
+    $latest['id'] = 0;
     foreach ($pdfs as $pdf) {
-        
-        if($latest['ausgabe'] < ($ausgabenr =  explode('_', $pdf['filename'], 3)[0]))
-                $latest['ausgabe'] = $ausgabenr;
+        if($latest['id'] < $pdf['id']){
+                $latest['id'] = $pdf['id'];
                 $latest['md5'] = $pdf['md5'];
         }
+    }
     return $latest;
 }
 
@@ -64,6 +53,13 @@ function get_gb($gb){
 
 ?>
 
+<?php 
+if(isset($_GET['gb'])&& $_GET['gb'] !== "" || $_GET['gb'] != NULL){
+    $gb = $_GET['gb'];
+}else{
+    $latest = latest();
+    $gb = $latest['md5'];
+}?>
 <!DOCTYPE html>
 <html style="width: 100%;">
     <head>
@@ -84,9 +80,7 @@ function get_gb($gb){
     <hr />
     <div class="d-flex flex-row flex-grow-1 flex-shrink-1 justify-content-center visible" style="min-width: 100%;padding: 0;margin: 0;min-height: 800px;">
     <?php get_gb($gb)?>
-    </div>
-
-        
+    </div>       
     <script src="assets/js/jquery.min.js?h=1dd785e1de9a32e236b624ae268bb803"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js?h=2394c9ffd5558f411ffdc3326e9a8962"></script>
 </body>
